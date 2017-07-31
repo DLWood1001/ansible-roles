@@ -1,12 +1,12 @@
 - name: Test if the provider is supported.
   meta: end_play
-  when: ovmt_provider != 'vmware'
+  when: ovmt.provider != 'vmware'
 
 - name: Set | Set local repo
   set_fact:
     ovmt_enable_repos: "local-repo"
     ovmt_disable_repos: "*"
-  when: ovmt_media == "local"
+  when: ovmt.media == "local"
 
 - name: Gather facts on the system.
   setup:

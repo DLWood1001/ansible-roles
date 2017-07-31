@@ -7,4 +7,4 @@
 - name: Install Virtualbox Guest Additions
   include: "{{role_path}}/tasks/install_virtualbox_guest_additions.yaml"
   when:
-    - vbox_provider == "virtualbox"
+    - vbox_parameters.provider == "virtualbox"

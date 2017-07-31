@@ -1,6 +1,9 @@
-ovmt_target: "{{target|default('server')}}"
-ovmt_provider: "{{provider|default(ansible_virtualization_type)}}"
-ovmt_media: "{{media|default('remote')}}"
+ovmt_defaults:
+   target: server
+   provider: "{{ansible_virtualization_type|lower}}"
+   media: remote
+
+ovmt: "{{ovmt_defaults|combine(parameters|default({}))}}"
 
 ovmt_dependencies:
   server:

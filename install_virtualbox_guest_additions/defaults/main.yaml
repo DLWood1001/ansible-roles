@@ -1,11 +1,15 @@
 version: "5.1.22"
-vbox_target: "{{target|default('server')}}"
-vbox_provider: "{{ansible_virtualization_type}}"
-vbox_version: "{{version|default('latest')}}"
-vbox_media: "{{media|default('remote')}}"
 
-vbox_iso: "VBoxGuestAdditions_{{vbox_version}}.iso"
-vbox_base: "http://download.virtualbox.org/virtualbox/{{vbox_version}}"
+vbox_parameter_defaults:
+   target: server
+   provider: "{{ansible_virtualization_type|lower}}"
+   version: 5.1.22
+   media: remote
+
+vbox_parameters: "{{vbox_parameter_defaults|combine(parameters|default({}))}}"
+
+vbox_iso: "VBoxGuestAdditions_{{vbox_parameters.version}}.iso"
+vbox_base: "http://download.virtualbox.org/virtualbox/{{vbox_parameters.version}}"
 vbox_url: "{{vbox_base}}/{{vbox_iso}}"
 
 vbox_nox11: ''

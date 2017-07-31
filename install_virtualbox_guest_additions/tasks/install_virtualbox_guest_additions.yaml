@@ -1,13 +1,13 @@
 - name: Validate | Test if the target is graphical.
   set_fact:
     vbox_nox11: '--nox11'
-  when: vbox_target != 'desktop'
+  when: vbox_parameters.target != 'desktop'
 
 - name: Set | Set local repo
   set_fact:
     vbox_enable_repos: "local-repo"
     vbox_disable_repos: "*"
-  when: vbox_media == "local"
+  when: vbox_parameters.media == "local"
 
 - name: Get | Kernel Version Data
   command: uname -r
@@ -81,5 +81,5 @@
       port: "{{oobm_port}}"
       count: 2
   when:
-    - vbox_target == 'graphical'
+    - vbox_parameters.target == 'desktop'
     - oobm_port is defined
