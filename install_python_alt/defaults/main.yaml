@@ -1,0 +1,29 @@
+py_ver: "{{version|default('2.7.11')}}"
+
+py_dependencies:
+  - 'tar'
+  - 'xz'
+  - '@Development Tools'
+  - 'zlib-devel'
+  - 'bzip2-devel'
+  - 'openssl-devel'
+  - 'ncurses-devel'
+  - 'sqlite-devel'
+  - 'readline-devel'
+  - 'tk-devel'
+  - 'libffi-devel'
+  - 'python-devel'
+
+# Note (Dan): Don't edit variables below.
+py_ver_regex: "^([0-9]+)\\.([0-9]+)\\.([0-9]+)$"
+
+py_major: "{{py_ver|regex_replace(py_ver_regex, '\\1')}}"
+py_minor: "{{py_ver|regex_replace(py_ver_regex, '\\2')}}"
+py_patch: "{{py_ver|regex_replace(py_ver_regex, '\\3')}}"
+
+py_family: "{{py_major}}.{{py_minor}}"
+
+py_url: "https://www.python.org/ftp/python"
+
+py_install_dir: "/usr/local/python{{py_ver}}"
+py_link_dir: "/usr/local/bin"

@@ -1,0 +1,13 @@
+# Validate Role
+# -------------
+- name: Gather Facts
+  setup:
+  when: ansible_os_family is not defined
+
+
+# Execute Role
+# ------------
+- name: Optimize Networking
+  include: "{{role_path}}/tasks/optimize_networking.yaml"
+  when:
+    - ansible_os_family == "RedHat"

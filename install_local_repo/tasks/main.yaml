@@ -1,0 +1,14 @@
+# Validate Role
+# -------------
+- name: Gather Facts
+  setup:
+  when: ansible_distribution is not defined
+
+
+# Execute Role
+# ------------
+- name: Optimize Networking
+  include: "{{role_path}}/tasks/install_local_repo.yaml"
+  when:
+    - ansible_distribution == "CentOS"
+    - media == "local"

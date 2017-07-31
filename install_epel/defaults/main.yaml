@@ -1,0 +1,2 @@
+epel_base: http://dl.fedoraproject.org/pub/epel
+epel_file: epel-release-latest-7.noarch.rpm

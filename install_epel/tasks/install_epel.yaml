@@ -1,0 +1,4 @@
+- name: Install EPEL RPM
+  yum:
+    name: "{{epel_base}}/{{epel_file}}"
+    state: present

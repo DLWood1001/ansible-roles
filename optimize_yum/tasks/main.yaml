@@ -1,0 +1,17 @@
+# Validate Role
+# -------------
+- name: Gather Facts
+  setup:
+  when: ansible_os_family is not defined
+
+
+# Execute Role
+# ------------
+#
+# Note (Dan): Yum = RedHat/Centos
+# Note (Dan): Yum will be replaced in versions greater than 7.x.
+- name: Optimize Yum
+  include: "{{role_path}}/tasks/optimize_yum.yaml"
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version <= 7

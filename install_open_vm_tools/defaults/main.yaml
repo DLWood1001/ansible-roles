@@ -1,0 +1,11 @@
+ovmt_target: "{{target|default('server')}}"
+ovmt_provider: "{{provider|default(ansible_virtualization_type)}}"
+ovmt_media: "{{media|default('remote')}}"
+
+ovmt_dependencies:
+  server:
+    - open-vm-tools
+  desktop:
+    - open-vm-tools
+    - open-vm-tools-desktop
+

@@ -1,0 +1,10 @@
+# Validate Role
+# -------------
+
+
+# Execute Role
+# ------------
+- name: Install Open VM Tools
+  include: "{{role_path}}/tasks/install_open_vm_tools.yaml"
+  when:
+    - ovmt_provider == "vmware"

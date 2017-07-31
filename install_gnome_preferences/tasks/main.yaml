@@ -1,0 +1,10 @@
+# Validate Role
+# -------------
+
+
+# Execute Role
+# ------------
+- name: Install Gnome Preferences
+  include: "{{role_path}}/tasks/install_gnome_preferences.yaml"
+  when:
+    - target == "desktop"
