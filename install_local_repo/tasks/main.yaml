@@ -11,4 +11,4 @@
   include: "{{role_path}}/tasks/install_local_repo.yaml"
   when:
     - ansible_distribution == "CentOS"
-    - media == "local"
+    - lr_parameters.media == "local"

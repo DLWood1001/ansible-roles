@@ -2,13 +2,13 @@
 # ------------------------
 - name: Validate | Test if the target is graphical.
   meta: end_play
-  when: target|default('server') != 'desktop'
+  when: gp_parameters.target != 'desktop'
 
 - name: Set | Set local repo
   set_fact:
     gp_enable_repos: "local-repo"
     gp_disable_repos: "*"
-  when: gp_media == "local"
+  when: gp_parameters.media == "local"
 
 - name: Install Gnome Extensions
   yum:
