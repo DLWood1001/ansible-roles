@@ -7,4 +7,4 @@
 - name: Install Open VM Tools
   include: "{{role_path}}/tasks/install_open_vm_tools.yaml"
   when:
-    - ovmt_parameters.provider == "vmware"
+    - ovmt_parameters.provider|lower == "vmware"
