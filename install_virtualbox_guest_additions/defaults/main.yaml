@@ -4,7 +4,6 @@ vbox_parameter_defaults:
    target: server
    provider: "{{ansible_virtualization_type|lower}}"
    version: 5.1.22
-   media: remote
 
 vbox_parameters: "{{vbox_parameter_defaults|combine(parameters|default({}))}}"
 

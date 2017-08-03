@@ -1,7 +1,6 @@
 ovmt_default_parameters:
    target: server
    provider: "{{ansible_virtualization_type|lower}}"
-   media: remote
 
 ovmt_parameters: "{{ovmt_default_parameters|combine(parameters|default({}))}}"
 

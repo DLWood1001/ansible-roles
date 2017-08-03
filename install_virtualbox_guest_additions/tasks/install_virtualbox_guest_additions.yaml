@@ -3,12 +3,6 @@
     vbox_nox11: '--nox11'
   when: vbox_parameters.target != 'desktop'
 
-- name: Set | Set local repo
-  set_fact:
-    vbox_enable_repos: "local-repo"
-    vbox_disable_repos: "*"
-  when: vbox_parameters.media == "local"
-
 - name: Get | Kernel Version Data
   command: uname -r
   changed_when: false
@@ -24,8 +18,6 @@
 - name: Install | Install Dependencies.
   package:
     name: "{{item}}"
-    enablerepo: "{{vbox_enable_repos|default(omit)}}"
-    disablerepo: "{{vbox_disable_repos|default(omit)}}"
     state: present
   with_items: "{{vbox_dependencies}}"
 
