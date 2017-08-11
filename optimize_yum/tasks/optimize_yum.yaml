@@ -1,8 +1,10 @@
+# Note (Dan): You can not set the installonly_limit=1. This means that a manual
+#             clean up of extra kernels is needed.
 - name: Supress Yum From Installing Multiple Kernel Copies.
   lineinfile:
     path: /etc/yum.conf
     regexp: ^installonly_limit=[0-9]+$
-    line: installonly_limit=10
+    line: installonly_limit=2
     state: present
 
 - name: Disable HTTP Caching

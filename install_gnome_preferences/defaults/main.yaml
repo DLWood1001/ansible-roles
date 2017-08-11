@@ -2,7 +2,6 @@
 # -------------------------
 gp_parameter_defaults:
    target: desktop
-   media: remote
 
 gp_parameters: "{{gp_parameter_defaults|combine(parameters|default({}))}}"
 

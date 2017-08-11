@@ -1,8 +1,14 @@
+- name: Ensure Reboot System Key Permissions Are Correct
+  file:
+    path: "{{role_path}}/files/reboot_system"
+    mode: 0600
+  delegate_to: localhost
+
 - name: Add Reboot System Public Key
   authorized_key:
     user: root
     state: present
-    key: "{{lookup('file','./files/reboot_system.pub')}}"
+    key: "{{lookup('file','{{role_path}}/files/reboot_system.pub')}}"
 
 # Note (Dan): When using delegate_to, ansible will replace ansible_host with
 #             localhost. This kind of makes sense. To solve the issue where we
@@ -27,5 +33,5 @@
   authorized_key:
     user: root
     state: absent
-    key: "{{lookup('file','./files/reboot_system.pub')}}"
+    key: "{{lookup('file','{{role_path}}/files/reboot_system.pub')}}"
 

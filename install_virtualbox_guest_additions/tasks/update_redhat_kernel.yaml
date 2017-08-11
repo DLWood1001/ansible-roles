@@ -1,0 +1,69 @@
+- name: Install | Repository Tools
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Get | Kernel Versions Data
+  command: >-
+    repoquery kernel                                \
+      --show-duplicates                             \
+      --queryformat="%{VERSION}-%{RELEASE}.%{ARCH}"
+  changed_when: false
+  register: kernel_vers_out
+
+- name: Get | Kernel Version Data
+  command: uname -r
+  changed_when: false
+  register: kernel_ver_out
+
+- name: Set | Kernel Version Variables
+  set_fact:
+    kernel_version: "{{kernel_ver_out.stdout}}"
+    kernel_versions: >-
+      {%- set k_vers = [] -%}
+      {%- for k_ver in kernel_vers_out.stdout_lines -%}
+        {%- if k_ver|match('^\d+\.\d+\.\d+.*$') -%}
+          {%- set _ = k_vers.append(k_ver) -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {{- k_vers -}}
+
+- name: Update | Update to a new kernel
+  block:
+  - name: Update | Kernel
+    yum:
+      name: kernel
+      state: latest
+  
+  - name: Reboot | Reboot the system
+    include_role:
+      name: reboot_system
+    vars:
+      reboot_system:
+        user: root
+        host: localhost
+        port: "{{oobm_port}}"
+  
+  - name: Get | New Kernel Version Data
+    command: uname -r
+    changed_when: false
+    register: kernel_ver_out
+  
+  - name: Set | New Kernel Version Variable
+    set_fact:
+      kernel_version: "{{kernel_ver_out.stdout}}"
+
+  when: kernel_version not in kernel_versions
+
+- name: Update | Update Virtualbox Dependencies
+  set_fact:
+    vbox_dependencies: "{{vbox_dependencies}} + [ '{{item}}' ]"
+  with_items:
+    - "kernel-devel-{{kernel_version}}"
+    - "kernel-headers-{{kernel_version}}"
+
+- name: Uninstall | Repository Tools
+  yum:
+    name: yum-utils
+    state: absent
+
