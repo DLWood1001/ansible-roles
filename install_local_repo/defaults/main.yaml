@@ -1,7 +1,0 @@
-lr_parameter_defaults:
-   media: local
-
-lr_parameters: "{{lr_parameter_defaults|combine(parameters|default({}))}}"
-
-lr_name: local-repo
-lr_dev: /dev/sr0
