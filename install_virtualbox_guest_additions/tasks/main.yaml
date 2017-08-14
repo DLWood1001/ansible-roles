@@ -1,10 +1,23 @@
 # Validate Role
 # -------------
+- name: Detect Previous Installed Version
+  shell: >-
+    lsmod                             \
+      | grep -io vboxguest            \
+      | xargs modinfo {} 2>/dev/null  \
+      | grep -iw version              \
+      | awk '{print $2}'
+  register: vbox_version_out
 
+- name: Set Version Facts
+  set_fact:
+    vbox_installed: "{{true if vbox_version_out.stdout else false}}"
+    vbox_version: "{{vbox_version_out.stdout}}"
 
 # Execute Role
 # ------------
 - name: Install Virtualbox Guest Additions
   include: "{{role_path}}/tasks/install_virtualbox_guest_additions.yaml"
   when:
+    - not vbox_installed
     - vbox_parameters.provider|lower == "virtualbox"
